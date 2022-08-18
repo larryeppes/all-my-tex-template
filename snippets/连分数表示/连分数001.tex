@@ -26,5 +26,8 @@
 	$$ a_0 + \cof{a_1 + \cof{a_2 + \cof{a_3 + {\atop\ddots}}}} $$
 	
 	\newcommand*{\underBracket}[2][1]{\underbracket[.6pt][0pt]{~#1\vphantom{g}~}_{\displaystyle #2\vphantom{g+1}}}
-	
+	\begin{equation}
+		a_0 + \underBracket{a_1\mathrlap{{}+ \underBracket{a_2\mathrlap{{} + \underBracket{a_3\mathrlap{{}+{}\raise-2.2ex\hbox{$\smash\ddots$}}}}}}}
+		\hphantom{a_1 + a_2 + a_3 + {}} % to reset the spacing/aligning
+	\end{equation}
 \end{document}
