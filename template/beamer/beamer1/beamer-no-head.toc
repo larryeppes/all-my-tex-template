@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Section I}{1}{0}{1}
+\beamer@sectionintoc {2}{Section II}{3}{0}{2}
+\beamer@sectionintoc {3}{Section III}{4}{0}{3}
+\beamer@sectionintoc {4}{Section IV}{4}{0}{4}
