@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+	\newcommand*{\cofrac}[2]{%
+		{%
+			\rlap{$\dfrac{1}{\phantom{#1}}$}%
+			\genfrac{}{}{0pt}{0}{}{#1+#2}%
+		}%
+	}
+	\[
+	a_0 +
+	\cofrac{a_1}{
+		\cofrac{a_2}{
+			\cofrac{a_3}{
+				\genfrac{}{}{0pt}{0}{}{\ddots}
+	}}}
+	\]
+\end{document}
