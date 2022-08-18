@@ -1,0 +1,159 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyvrb}
+
+\setlength{\parindent}{0cm}
+\newcommand\latex{\verb}
+\DefineVerbatimEnvironment{Latex}{Verbatim}{numbers=left,numbersep=2mm}
+
+\renewcommand\quote[1]{"#1"}
+
+% == PACKAGES USED == %
+
+\usepackage{mathtools}
+\usepackage{ifmtarg}
+
+
+% == DEF : Continued Fractions == %
+
+% Sources :
+%    * https://groups.google.com/forum/?hl=fr&fromgroups#!topic/fr.comp.text.tex/UrUZiurKwm0
+%    * http://tex.stackexchange.com/questions/68190/continued-fraction-in-inline-equations/68196#68196
+%    * http://tex.stackexchange.com/questions/23432/how-to-create-my-own-math-operator-with-limits
+
+\makeatletter
+% Operator-like output
+\def\contFracOpe{%
+	\operatornamewithlimits{%
+		\mathchoice{% * Display style
+			\vcenter{\hbox{\huge $\mathcal{K}$}}%
+		}{%           * Text style
+			\vcenter{\hbox{\Large $\mathcal{K}$}}%
+		}{%           * Script style
+			\mathrm{\mathcal{K}}%
+		}{%           * Script script style
+			\mathrm{\mathcal{K}}%
+		}
+	}
+}
+
+
+% Operation-like output
+\newcommand\contFrac{\@ifstar{\@contFracStar}{\@contFracNoStar}}
+
+\def\singleContFrac#1#2{%
+	\begin{array}{@{}c@{}}%
+		\multicolumn{1}{c|}{#1}%
+		\\%
+		\hline%
+		\multicolumn{1}{|c}{#2}%
+	\end{array}%
+}
+
+% No star version 
+\def\@contFracNoStar#1{%
+	% //\@nil is usefull if only one argument is given.
+	\mathchoice{% * Display style
+		\@contFracNoStarDisplay@#1//\@nil%
+	}{%           * Text style
+		\@contFracNoStarInline@#1//\@nil%
+	}{%           * Script style
+		\@contFracNoStarInline@#1//\@nil%
+	}{%           * Script script style
+		\@contFracNoStarInline@#1//\@nil%
+	}%
+}
+
+% No star version - Display style
+\def\@contFracNoStarDisplay@#1//#2\@nil{%
+	\@ifmtarg{#2}{%
+		#1%
+	}{%
+		#1+\cfrac{1}{\@contFracNoStarDisplay@#2\@nil}%
+	}%
+}
+
+% No star version - Inline style
+\def\@contFracNoStarInline@#1//#2\@nil{%
+	\@ifmtarg{#2}{%
+		#1%
+	}{%
+		#1 \@@contFracNoStarInline@@#2\@nil%
+	}%
+}
+\def\@@contFracNoStarInline@@#1//#2\@nil{%
+	\@ifmtarg{#2}{%
+		+ \singleContFrac{1}{#1}%
+	}{%
+		+ \singleContFrac{1}{#1} \@@contFracNoStarInline@@#2\@nil%
+	}%
+}
+
+% Star version 
+\def\@contFracStar#1{%
+	\mathchoice{% * Display style
+		% ////\@nil is usefull if only one argument is given.
+		\@contFracStarDisplay@#1////\@nil%
+	}{%           * Text style
+		% //\@nil is usefull if only one argument is given.
+		\@contFracStarInline@#1//\@nil%
+	}{%           * Script style
+		\@contFracStarInline@#1//\@nil%
+	}{%           * Script script style
+		\@contFracStarInline@#1//\@nil%
+	}%
+}
+
+% Star version - Display style
+\def\@contFracStarDisplay@#1//#2//#3\@nil{%
+	\@ifmtarg{#2}{%
+		#1%
+	}{%
+		#1 + \cfrac{#2}{\@contFracStarDisplay@#3\@nil}%
+	}%
+}
+
+% Star version - Inline style
+\def\@contFracStarInline@#1//#2\@nil{%
+	\@ifmtarg{#2}{%
+		#1%
+	}{%
+		#1 \@@contFracStarInline@@#2\@nil%
+	}%
+}
+\def\@@contFracStarInline@@#1//#2//#3\@nil{%
+	\@ifmtarg{#3}{%
+		+ \singleContFrac{#1}{#2}%
+	}{%
+		+ \singleContFrac{#1}{#2} \@@contFracStarInline@@#3\@nil%
+	}%
+}
+\makeatother
+
+
+\begin{document}
+	
+	\section{Unstarred version}
+	
+	$\displaystyle \contFrac{u_0 // u_1 // u_2 // \dots // u_n}$
+	
+	
+	$\contFrac{u_0 // u_1 // u_2 // \dots // u_n}$
+	
+	
+	\section{Starred version}
+	
+	$\displaystyle \contFrac*{a // b // c // d // e // f // \dots // y // z}$
+	
+	
+	$\contFrac*{a // b // c // d // e // f // \dots // y // z}$.
+	
+	\section{Operator}
+	
+	$\displaystyle
+	\contFracOpe_{k=1}^{n} (b_k:c_k)
+	=
+	\cfrac{b_1}{\displaystyle \contFrac*{c_1 // b_2 // c_2 // b_3 // \dots // b_n // c_n}}
+	$
+	
+\end{document}
