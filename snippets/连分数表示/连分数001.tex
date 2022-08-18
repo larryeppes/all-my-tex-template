@@ -38,4 +38,15 @@
 		\raisebox{-2.0\height}{$\dfrac{1}{a_3\mathrlap{\,+}}$}\mkern15mu
 		\raisebox{-3\height}{$\ddots$}
 	\]
+	
+	\def\cFrac#1#2{%
+		\begin{array}{@{}c@{}}\multicolumn{1}{c|}{#1}\\%
+			\hline\multicolumn{1}{|c}{#2}\end{array}}
+	
+	\def\cFracB#1#2{%
+		\vcenter{\hbox{\strut$#1$\,\vrule}\hrule\hbox{\strut\vrule\,$#2$}}}
+	
+	$ A + \cFrac{B}{C} + \cFrac{D}{E}$.
+	
+	$ A + \cFracB{B}{C} + \cFracB{D}{E}$.
 \end{document}
