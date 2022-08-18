@@ -1,6 +1,8 @@
 % https://tex.stackexchange.com/questions/73195/how-to-typeset-a-continued-fraction-in-the-following-format
+% https://tex.stackexchange.com/questions/68190/how-do-i-typeset-continued-fractions-in-pringsheims-concise-notation
 \documentclass{article}
 \usepackage{amsmath,mathtools}
+\usepackage{holtpolt}
 
 \begin{document}
 	\newcommand*{\cofrac}[2]{%
@@ -17,20 +19,20 @@
 				\genfrac{}{}{0pt}{0}{}{\ddots}
 	}}}
 	\]
-	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{equation*}
 		a_0+\cfrac{1}{a_1+\cfrac{1}{a_2+\cfrac{1}{a_3+\cdots}}}
 	\end{equation*}
-
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\def\cof#1{\displaystyle{1\strut\hfill\over #1}}
 	$$ a_0 + \cof{a_1 + \cof{a_2 + \cof{a_3 + {\atop\ddots}}}} $$
-	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\newcommand*{\underBracket}[2][1]{\underbracket[.6pt][0pt]{~#1\vphantom{g}~}_{\displaystyle #2\vphantom{g+1}}}
 	\begin{equation}
 		a_0 + \underBracket{a_1\mathrlap{{}+ \underBracket{a_2\mathrlap{{} + \underBracket{a_3\mathrlap{{}+{}\raise-2.2ex\hbox{$\smash\ddots$}}}}}}}
 		\hphantom{a_1 + a_2 + a_3 + {}} % to reset the spacing/aligning
 	\end{equation}
-
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\[
 		a_0+
 		\raisebox{-.25\height}{$\dfrac{1}{a_1\mathrlap{\,+}}$}\mkern15mu
@@ -38,7 +40,7 @@
 		\raisebox{-2.0\height}{$\dfrac{1}{a_3\mathrlap{\,+}}$}\mkern15mu
 		\raisebox{-3\height}{$\ddots$}
 	\]
-	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\def\cFrac#1#2{%
 		\begin{array}{@{}c@{}}\multicolumn{1}{c|}{#1}\\%
 			\hline\multicolumn{1}{|c}{#2}\end{array}}
@@ -49,4 +51,8 @@
 	$ A + \cFrac{B}{C} + \cFrac{D}{E}$.
 	
 	$ A + \cFracB{B}{C} + \cFracB{D}{E}$.
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\[
+	a_0+\polter{1}{a_1}+\polter{1}{a_2}+\cdots+\polter{1}{a_n}+\cdots
+	\]
 \end{document}
